@@ -11,6 +11,7 @@ namespace наша
         static void Main(string[] args)
         {
             Console.WriteLine("буба");
+            Console.WriteLine("дуда");
         }
     }
 }
