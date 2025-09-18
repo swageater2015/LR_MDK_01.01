@@ -21,12 +21,18 @@ namespace @in.mdk._01._01
                 array3[index] = (index + 1) * 2;
             }
             Console.Write("[");
+            
+            for (int index = 0; index < array3.Length/2; index++)
+            {
+                int temp = array3[index];
+                array3[index] = array3[array3.Length - 1 - index];
+                array3[array3.Length - 1 - index] = temp;
+            }
             for (int index = 0; index < array3.Length - 1; index++)
             {
                 Console.Write($"{array3[index]}, ");
             }
             Console.Write($"{array3[array3.Length - 1]}]");
-
 
             
         }
