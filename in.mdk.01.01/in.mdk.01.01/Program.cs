@@ -12,7 +12,8 @@ namespace @in.mdk._01._01
         {
             string[] array = new string[3] { "йцу", "енг", "мит" };
             array[1] = "кпрцкр";
-
+            Console.WriteLine($"Элементы массива:{array[0]},{array[1]},{array[2]}");
+            string[] array2 = new string[2];
         }
     }
 }
