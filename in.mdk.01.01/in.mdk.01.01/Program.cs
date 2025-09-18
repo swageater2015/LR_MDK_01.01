@@ -10,6 +10,9 @@ namespace @in.mdk._01._01
     {
         static void Main(string[] args)
         {
+            string[] array = new string[3] { "йцу", "енг", "мит" };
+            
+
         }
     }
 }
