@@ -39,6 +39,16 @@ namespace LR_1__1_variant_2_
                     count = count + 1;
                 }
             }
+
+            Console.WriteLine("\nРезультаты:");
+            Console.Write("Массив: ");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(numbers[i] + " ");
+            }
+
+            Console.WriteLine("\nСреднее значение: " + average);
+            Console.WriteLine("Элементов меньше среднего: " + count);
         }
     }
 }
