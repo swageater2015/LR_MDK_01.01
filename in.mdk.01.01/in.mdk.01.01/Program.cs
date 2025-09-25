@@ -34,6 +34,12 @@ namespace @in.mdk._01._01
             }
             Console.Write($"{array3[array3.Length - 1]}]");
 
+
+
+
+
+            
+
             
         }
     }
