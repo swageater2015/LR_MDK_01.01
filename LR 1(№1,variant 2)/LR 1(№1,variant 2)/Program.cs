@@ -29,6 +29,16 @@ namespace LR_1__1_variant_2_
             {
                 sum = sum + numbers[i];
             }
+            double average = (double)sum / n;
+
+            int count = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (numbers[i] < average)
+                {
+                    count = count + 1;
+                }
+            }
         }
     }
 }
