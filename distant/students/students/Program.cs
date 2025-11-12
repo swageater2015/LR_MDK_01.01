@@ -46,6 +46,12 @@ namespace students
             {
                 bestStudents[i] = students[i];
             }
+
+            Console.WriteLine("10 лучших студентов:");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine($"{i + 1}. {bestStudents[i].Name} - {bestStudents[i].Grade:F1} баллов, {bestStudents[i].Age} лет");
+            }
         }
     }
 }
