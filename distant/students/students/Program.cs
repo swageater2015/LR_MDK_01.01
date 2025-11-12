@@ -28,6 +28,19 @@ namespace students
             }
 
             Student[] bestStudents = new Student[10];
+
+            for (int i = 0; i < students.Length; i++)
+            {
+                for (int j = i + 1; j < students.Length; j++)
+                {
+                    if (students[i].Grade < students[j].Grade)
+                    {
+                        Student temp = students[i];
+                        students[i] = students[j];
+                        students[j] = temp;
+                    }
+                }
+            }
         }
     }
 }
