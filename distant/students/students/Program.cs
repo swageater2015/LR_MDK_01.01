@@ -19,6 +19,13 @@ namespace students
         {
             Student[] students = new Student[100];
             Random random = new Random();
+
+            for (int i = 0; i < 100; i++)
+            {
+                students[i].Name = "Student" + (i + 1);
+                students[i].Age = random.Next(17, 25);
+                students[i].Grade = random.Next(2, 6) + random.NextDouble();
+            }
         }
     }
 }
