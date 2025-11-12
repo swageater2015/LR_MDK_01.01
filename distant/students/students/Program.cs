@@ -24,7 +24,7 @@ namespace students
             {
                 students[i].Name = "Student" + (i + 1);
                 students[i].Age = random.Next(17, 25);
-                students[i].Grade = random.Next(2, 6) + random.NextDouble();
+                students[i].Grade = random.Next(2, 5) + random.NextDouble();
             }
 
             Student[] bestStudents = new Student[10];
