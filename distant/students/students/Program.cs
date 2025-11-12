@@ -18,7 +18,7 @@ namespace students
         static void Main(string[] args)
         {
             Student[] students = new Student[100];
-            Random rand = new Random();
+            Random random = new Random();
         }
     }
 }
