@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace VideoGames
 {
-    class Struct
+    public struct Game
     {
+        public string Name;
+        public string Genre;
+        public int Downloads; //число скачиваний за день
     }
 }
