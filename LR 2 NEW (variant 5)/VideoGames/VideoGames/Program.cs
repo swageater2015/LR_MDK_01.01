@@ -18,11 +18,15 @@ namespace VideoGames
             games.Add(new Game() { Name = "Apex Legends", Genre = "shooter", Downloads = 700 });
             Console.WriteLine("Введите жанр игры:");
             string genre = Console.ReadLine();
+            List<Game> foundGames = new List<Game>();
+
             foreach (Game g in games)
             {
-                if (Genre = genre)
+                if (g.Genre == genre)
+                {
+                    foundGames.Add(g);
+                }
             }
         }
     }
 }
-g
