@@ -27,6 +27,25 @@ namespace VideoGames
                     foundGames.Add(g);
                 }
             }
+
+            for (int i = 0; i < foundGames.Count; i++)
+            {
+                for (int j = i + 1; j < foundGames.Count; j++)
+                {
+                    if (foundGames[i].Downloads < foundGames[j].Downloads)
+                    {
+                        Game temp = foundGames[i];
+                        foundGames[i] = foundGames[j];
+                        foundGames[j] = temp;
+                    }
+                }
+            }
+
+            Console.WriteLine($"Игры жанра '{genre}':");
+            foreach (Game g in foundGames)
+            {
+                Console.WriteLine($"{g.Name} - {g.Downloads} скачиваний");
+            }
         }
     }
 }
