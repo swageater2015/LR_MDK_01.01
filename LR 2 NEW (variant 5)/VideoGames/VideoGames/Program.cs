@@ -46,6 +46,18 @@ namespace VideoGames
             {
                 Console.WriteLine($"{g.Name} - {g.Downloads} скачиваний");
             }
+
+            int sum = 0;
+            foreach (Game g in foundGames)
+            {
+                sum += g.Downloads;
+            }
+
+            if (foundGames.Count > 0)
+            {
+                double average = (double)sum / foundGames.Count;
+                Console.WriteLine($"Среднее количество скачиваний: {average}");
+            }
         }
     }
 }
