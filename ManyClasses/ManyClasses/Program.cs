@@ -43,6 +43,8 @@ namespace ManyClasses
             report.ToString();
             Console.WriteLine();
             report.CalculateSum();
+
+            //сделать отчет как что зачем и почему решали в ворд файле на флешке
         }
     }
 }
