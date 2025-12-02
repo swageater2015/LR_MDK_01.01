@@ -15,7 +15,7 @@ namespace ManyClasses
             rows_.Add(row);
         }
 
-        static string ConvertRowToString(ReportRow row)
+        public string ConvertRowToString(ReportRow row)
         {
             return row.Product + ";" + row.Quantity + ";" + row.Price;
         }

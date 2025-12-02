@@ -37,9 +37,14 @@ namespace ManyClasses
             row2.Product = "rhjnrehrwhwh";
             row2.Quantity = 600;
             row2.Price = 7000;
+            ReportRow row3 = new ReportRow();
+            row3.Product = "ШЫШУЛЯ";
+            row3.Quantity = 500;
+            row3.Price = 100;
 
             report.AddRecord(row1);
             report.AddRecord(row2);
+            report.AddRecord(row3);
             report.ToString();
             Console.WriteLine();
             report.CalculateSum();
