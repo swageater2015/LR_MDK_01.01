@@ -9,6 +9,8 @@ namespace PropertiesWinForms
         private DateTime birthDay_;
         private string number_;
         private double avgBall_;
+        private int ticketNumber_;
+        private double averagePoint_;
 
         [DisplayName("ФИО")]
         public string Name
@@ -26,5 +28,20 @@ namespace PropertiesWinForms
         {
             birthDay_ = d;
         }
+
+        [DisplayName("Номер билета")]
+        public int TicketNumber
+        {
+            get { return ticketNumber_; }
+            set { ticketNumber_ = value; }
+        }
+
+        [DisplayName("Средний балл")]
+        public double AveragePoint
+        {
+            get { return averagePoint_; }
+            set { averagePoint_ = value; }
+        }
+      
     }
 }

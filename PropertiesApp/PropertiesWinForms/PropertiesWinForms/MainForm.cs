@@ -30,10 +30,14 @@ namespace PropertiesWinForms
             Student st1 = new Student();
             st1.Name = "Иванов Иван Иванович";
             st1.SetBirthDay(new System.DateTime(1997, 11, 27));
+            st1.TicketNumber = 1;
+            st1.AveragePoint = 3;
 
             Student st2 = new Student();
             st2.Name = "Петрова Ольга Дмитриевна";
             st2.SetBirthDay(new System.DateTime(2000, 12, 31));
+            st2.TicketNumber = 2;
+            st2.AveragePoint = 4;
 
             allStudents.Add(st1);
             allStudents.Add(st2);
