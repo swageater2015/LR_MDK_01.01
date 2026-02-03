@@ -32,7 +32,7 @@ namespace TestFileStorage
                     return;
                 }
             }
-            MessageBox.Show("Логин или пароль введены неверно");
+            MessageBox.Show("Логин или пароль введены неверно!");
             
         }
     }
