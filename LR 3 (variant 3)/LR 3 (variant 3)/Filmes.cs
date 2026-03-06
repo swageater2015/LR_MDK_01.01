@@ -6,20 +6,15 @@ using System.Threading.Tasks;
 
 namespace LR_3__variant_3_
 {
-    public class Filmes
+    public class Film
     {
-        public int cost_;
-        public string director_;
-        public string roles_;
-        public int date_;
-
-        public Filmes(int cost, string director, string roles, int date)
-        {
-            cost_ = cost;
-            director_ = director;
-            roles_ = roles;
-            date_ = date;
-        }
-
+        public string Genre;
+        public string Title;
+        public decimal Cost;
+        public string Director;
+        public string Roles;
+        public DateTime Expiry;
+        public string ImagePath;
     }
+
 }
