@@ -18,7 +18,7 @@ namespace LR_3__variant_3_
             LoadData();
             FillGenres();
         }
-        List<Film> allFilms = new List<Film>();
+        List<Film> llFilms = new List<Film>();
         List<string> orderTitles = new List<string>();
         List<int> orderQtys = new List<int>();
     }
