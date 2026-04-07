@@ -9,7 +9,7 @@ namespace CollegeStudentsApp
     {
         string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=123;Database=CollegeDB";
 
-        DataGridView dataGridView1;
+        DataGridView dataGridView1; 
         Button buttonAdd;
         Button buttonEdit;
         Button buttonDelete;
