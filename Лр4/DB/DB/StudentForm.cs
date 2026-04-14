@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using Npgsql;
+using Npgsql;  // не забудь добавить через NuGet
 
 namespace CollegeStudentsApp
 {
-    public class FormStudents : Form  // ← убрал partial
+    public partial class FormStudents : Form
     {
-        string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=123;Database=CollegeDB";
+        // Строка подключения к базе данных (поменяй пароль и порт если нужно)
+        string connectionString = "Host=192.168.1.48;Username=st53-5;Password=535;Database=CollegeDB";
 
-        DataGridView dataGridView1; 
+        // Все элементы формы (объявляем здесь)
+        DataGridView dataGridView1;
         Button buttonAdd;
         Button buttonEdit;
         Button buttonDelete;
@@ -22,104 +24,93 @@ namespace CollegeStudentsApp
 
         public FormStudents()
         {
-            // Сначала создаём элементы
+            // Создаём форму и все элементы
             InitializeMyForm();
-
-            // Проверка: добавились ли элементы?
-            MessageBox.Show("Элементов на форме: " + this.Controls.Count);
-
-            // Потом загружаем данные
+            // Загружаем данные из БД
             LoadData();
+            dataGridView1.Font = new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular);
         }
 
+        // Метод для создания интерфейса (всё руками, без дизайнера)
         private void InitializeMyForm()
         {
             this.Text = "Студенты колледжа";
             this.Size = new System.Drawing.Size(800, 500);
             this.StartPosition = FormStartPosition.CenterScreen;
-            // Важно! Цвет фона, чтобы видеть границы
-            this.BackColor = System.Drawing.Color.LightGray;
 
             // Создаём таблицу
             dataGridView1 = new DataGridView();
             dataGridView1.Location = new System.Drawing.Point(12, 12);
             dataGridView1.Size = new System.Drawing.Size(760, 250);
-            dataGridView1.ReadOnly = true;
+            dataGridView1.ReadOnly = true;  // чтобы нельзя было редактировать прямо в таблице
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = System.Drawing.Color.White;  // чтобы было видно
-            dataGridView1.RowHeaderMouseClick += DataGridView1_RowHeaderMouseClick;
+
+            // Подписка на событие клика по строке
+            dataGridView1.RowHeaderMouseClick += new DataGridViewCellMouseEventHandler(DataGridView1_RowHeaderMouseClick);
 
             // Создаём поля для ввода
             label1 = new Label();
             label1.Text = "Номер студенческого билета:";
             label1.Location = new System.Drawing.Point(12, 280);
             label1.Size = new System.Drawing.Size(180, 25);
-            label1.BackColor = System.Drawing.Color.White;  // чтобы было видно
 
             textBoxCard = new TextBox();
             textBoxCard.Location = new System.Drawing.Point(200, 280);
-            textBoxCard.Size = new System.Drawing.Size(250, 20);
+            textBoxCard.Size = new System.Drawing.Size(200, 20);
 
             label2 = new Label();
             label2.Text = "Номер курса (только число):";
             label2.Location = new System.Drawing.Point(12, 310);
             label2.Size = new System.Drawing.Size(180, 25);
-            label2.BackColor = System.Drawing.Color.White;
 
             textBoxCourse = new TextBox();
             textBoxCourse.Location = new System.Drawing.Point(200, 310);
-            textBoxCourse.Size = new System.Drawing.Size(250, 20);
+            textBoxCourse.Size = new System.Drawing.Size(200, 20);
 
             label3 = new Label();
             label3.Text = "Название группы:";
             label3.Location = new System.Drawing.Point(12, 340);
             label3.Size = new System.Drawing.Size(180, 25);
-            label3.BackColor = System.Drawing.Color.White;
 
             textBoxGroup = new TextBox();
             textBoxGroup.Location = new System.Drawing.Point(200, 340);
-            textBoxGroup.Size = new System.Drawing.Size(250, 20);
+            textBoxGroup.Size = new System.Drawing.Size(200, 20);
 
             label4 = new Label();
             label4.Text = "ФИО студента:";
             label4.Location = new System.Drawing.Point(12, 370);
             label4.Size = new System.Drawing.Size(180, 25);
-            label4.BackColor = System.Drawing.Color.White;
 
             textBoxName = new TextBox();
             textBoxName.Location = new System.Drawing.Point(200, 370);
-            textBoxName.Size = new System.Drawing.Size(250, 20);
+            textBoxName.Size = new System.Drawing.Size(200, 20);
 
             // Кнопки
             buttonAdd = new Button();
             buttonAdd.Text = "Добавить";
-            buttonAdd.Location = new System.Drawing.Point(480, 280);
+            buttonAdd.Location = new System.Drawing.Point(450, 280);
             buttonAdd.Size = new System.Drawing.Size(100, 30);
-            buttonAdd.BackColor = System.Drawing.Color.LightGreen;
-            buttonAdd.Click += ButtonAdd_Click;
+            buttonAdd.Click += new EventHandler(ButtonAdd_Click);
 
             buttonEdit = new Button();
             buttonEdit.Text = "Редактировать";
-            buttonEdit.Location = new System.Drawing.Point(590, 280);
+            buttonEdit.Location = new System.Drawing.Point(560, 280);
             buttonEdit.Size = new System.Drawing.Size(100, 30);
-            buttonEdit.BackColor = System.Drawing.Color.LightYellow;
-            buttonEdit.Click += ButtonEdit_Click;
+            buttonEdit.Click += new EventHandler(ButtonEdit_Click);
 
             buttonDelete = new Button();
             buttonDelete.Text = "Удалить";
-            buttonDelete.Location = new System.Drawing.Point(480, 320);
+            buttonDelete.Location = new System.Drawing.Point(670, 280);
             buttonDelete.Size = new System.Drawing.Size(100, 30);
-            buttonDelete.BackColor = System.Drawing.Color.LightCoral;
-            buttonDelete.Click += ButtonDelete_Click;
+            buttonDelete.Click += new EventHandler(ButtonDelete_Click);
 
             buttonRefresh = new Button();
             buttonRefresh.Text = "Обновить";
-            buttonRefresh.Location = new System.Drawing.Point(590, 320);
+            buttonRefresh.Location = new System.Drawing.Point(670, 320);
             buttonRefresh.Size = new System.Drawing.Size(100, 30);
-            buttonRefresh.BackColor = System.Drawing.Color.LightBlue;
-            buttonRefresh.Click += ButtonRefresh_Click;
+            buttonRefresh.Click += new EventHandler(ButtonRefresh_Click);
 
             // Добавляем все элементы на форму
             this.Controls.Add(dataGridView1);
@@ -135,13 +126,9 @@ namespace CollegeStudentsApp
             this.Controls.Add(buttonEdit);
             this.Controls.Add(buttonDelete);
             this.Controls.Add(buttonRefresh);
-
-            // Проверка: сколько элементов добавили?
-            MessageBox.Show("Добавлено элементов: " + this.Controls.Count);
         }
 
-        // ... остальные методы (LoadData, ButtonAdd_Click и т.д.) остаются те же ...
-
+        // Загрузка данных из PostgreSQL в DataGridView
         private void LoadData()
         {
             try
@@ -149,7 +136,10 @@ namespace CollegeStudentsApp
                 using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT id, student_card_number AS 'Номер билета', course_number AS 'Курс', group_name AS 'Группа', full_name AS 'ФИО' FROM students ORDER BY id";
+
+                    // В PostgreSQL алиасы (названия колонок) в ДВОЙНЫХ кавычках
+                    string sql = "SELECT id, student_card_number AS \"Номер билета\", course_number AS \"Курс\", group_name AS \"Группа\", full_name AS \"ФИО\" FROM students ORDER BY id";
+
                     NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sql, connection);
                     DataTable table = new DataTable();
                     adapter.Fill(table);
@@ -157,6 +147,8 @@ namespace CollegeStudentsApp
 
                     if (dataGridView1.Columns.Contains("id"))
                         dataGridView1.Columns["id"].Visible = false;
+
+                    connection.Close();
                 }
             }
             catch (Exception ex)
@@ -165,42 +157,186 @@ namespace CollegeStudentsApp
             }
         }
 
-        // Добавьте остальные методы (ButtonAdd_Click, ButtonEdit_Click и т.д.)
-        // Они такие же, как в вашем коде
-
+        // Событие - когда пользователь кликает на строку таблицы
         private void DataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            // Получаем выбранную строку
+            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+
+            // Заполняем текстовые поля данными из выбранной строки
+            textBoxCard.Text = row.Cells["Номер билета"].Value.ToString();
+            textBoxCourse.Text = row.Cells["Курс"].Value.ToString();
+            textBoxGroup.Text = row.Cells["Группа"].Value.ToString();
+            textBoxName.Text = row.Cells["ФИО"].Value.ToString();
+        }
+
+        // Кнопка "Добавить"
+        private void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            // Проверяем, что все поля заполнены
+            if (textBoxCard.Text == "" || textBoxCourse.Text == "" || textBoxGroup.Text == "" || textBoxName.Text == "")
             {
-                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                textBoxCard.Text = row.Cells["Номер билета"].Value?.ToString() ?? "";
-                textBoxCourse.Text = row.Cells["Курс"].Value?.ToString() ?? "";
-                textBoxGroup.Text = row.Cells["Группа"].Value?.ToString() ?? "";
-                textBoxName.Text = row.Cells["ФИО"].Value?.ToString() ?? "";
+                MessageBox.Show("Заполните все поля!");
+                return;
+            }
+
+            // Проверяем, что курс - это число
+            int courseNumber;
+            bool isNumber = int.TryParse(textBoxCourse.Text, out courseNumber);
+            if (!isNumber)
+            {
+                MessageBox.Show("Номер курса должен быть числом!");
+                return;
+            }
+
+            try
+            {
+                // Открываем соединение
+                NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+                connection.Open();
+
+                // SQL запрос на добавление новой записи
+                string sql = "INSERT INTO students (student_card_number, course_number, group_name, full_name) VALUES (@card, @course, @group, @name)";
+
+                // Создаём команду
+                NpgsqlCommand command = new NpgsqlCommand(sql, connection);
+
+                // Добавляем параметры (защита от SQL инъекций)
+                command.Parameters.AddWithValue("@card", textBoxCard.Text);
+                command.Parameters.AddWithValue("@course", courseNumber);
+                command.Parameters.AddWithValue("@group", textBoxGroup.Text);
+                command.Parameters.AddWithValue("@name", textBoxName.Text);
+
+                // Выполняем команду
+                command.ExecuteNonQuery();
+
+                // Закрываем соединение
+                connection.Close();
+
+                // Обновляем таблицу
+                LoadData();
+
+                // Очищаем поля
+                ClearFields();
+
+                MessageBox.Show("Студент успешно добавлен!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при добавлении: " + ex.Message);
             }
         }
 
-        private void ButtonAdd_Click(object sender, EventArgs e)
-        {
-            // ваш существующий код
-        }
-
+        // Кнопка "Редактировать"
         private void ButtonEdit_Click(object sender, EventArgs e)
         {
-            // ваш существующий код
+            // Проверяем, выбрана ли строка
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Сначала выберите студента в таблице!");
+                return;
+            }
+
+            // Получаем ID выбранного студента
+            int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value);
+
+            // Проверяем заполнение полей
+            if (textBoxCard.Text == "" || textBoxCourse.Text == "" || textBoxGroup.Text == "" || textBoxName.Text == "")
+            {
+                MessageBox.Show("Заполните все поля!");
+                return;
+            }
+
+            // Проверяем курс
+            int courseNumber;
+            if (!int.TryParse(textBoxCourse.Text, out courseNumber))
+            {
+                MessageBox.Show("Номер курса должен быть числом!");
+                return;
+            }
+
+            try
+            {
+                NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+                connection.Open();
+
+                // SQL запрос на обновление
+                string sql = "UPDATE students SET student_card_number = @card, course_number = @course, group_name = @group, full_name = @name WHERE id = @id";
+
+                NpgsqlCommand command = new NpgsqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@card", textBoxCard.Text);
+                command.Parameters.AddWithValue("@course", courseNumber);
+                command.Parameters.AddWithValue("@group", textBoxGroup.Text);
+                command.Parameters.AddWithValue("@name", textBoxName.Text);
+                command.Parameters.AddWithValue("@id", id);
+
+                command.ExecuteNonQuery();
+
+                connection.Close();
+
+                LoadData();
+                ClearFields();
+
+                MessageBox.Show("Данные студента обновлены!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при редактировании: " + ex.Message);
+            }
         }
 
+        // Кнопка "Удалить"
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
-            // ваш существующий код
+            // Проверяем, выбрана ли строка
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Сначала выберите студента в таблице!");
+                return;
+            }
+
+            // Спрашиваем подтверждение
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить этого студента?", "Подтверждение", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+
+            // Получаем ID
+            int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value);
+
+            try
+            {
+                NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+                connection.Open();
+
+                string sql = "DELETE FROM students WHERE id = @id";
+                NpgsqlCommand command = new NpgsqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                command.ExecuteNonQuery();
+
+                connection.Close();
+
+                LoadData();
+                ClearFields();
+
+                MessageBox.Show("Студент удалён!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении: " + ex.Message);
+            }
         }
 
+        // Кнопка "Обновить" (просто перезагружает данные)
         private void ButtonRefresh_Click(object sender, EventArgs e)
         {
             LoadData();
             ClearFields();
         }
 
+        // Очистка текстовых полей
         private void ClearFields()
         {
             textBoxCard.Text = "";
